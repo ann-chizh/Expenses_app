@@ -1,4 +1,5 @@
 import 'package:expense_tracker/widgets/expences_list/expenses_list.dart';
+import 'package:expense_tracker/widgets/new_expense.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -26,9 +27,24 @@ class _ExpensesState extends State<Expenses>{
       category: Category.leisure,),
   ];
 
+void _openAddExpenseOverlay(){
+    showModalBottomSheet(context: context, builder: (ctx){
+      return const NewExpense();
+    });
+}
+
+
   @override
   Widget build(BuildContext context) {
-        return Scaffold(body: Column(
+        return Scaffold(
+          appBar: AppBar(
+            title: Text('Flutter ExpenseTracker'),
+            actions: [
+              IconButton(icon: Icon(Icons.add),
+              onPressed: _openAddExpenseOverlay,)
+            ]
+          ),
+          body: Column(
           children: [
             const Text('the chart'),
             Expanded(child: ExpensesList(expenses: _registeredExpenses, ))
